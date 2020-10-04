@@ -30,7 +30,9 @@ namespace YourCheese
                     if (data.IsLocalPlayer)
                         Console.ForegroundColor = ConsoleColor.Green;
                     if (data.PlayerInfo.Value.IsDead == 1)
-                        Console.ForegroundColor = ConsoleColor.Red; 
+                        Console.ForegroundColor = ConsoleColor.Gray;
+                    if (data.PlayerInfo.Value.IsImpostor == 1)
+                        Console.ForegroundColor = ConsoleColor.Red;
 
                     var Name = HamsterCheese.AmongUsMemory.Utils.ReadString(data.PlayerInfo.Value.PlayerName);
                    PrintRow($"{(data.IsLocalPlayer == true ? "Me->" : "")}{data.offset_str}", $"{Name}", $"{data.Instance.OwnerId}", $"{data.Instance.PlayerId}", $"{data.Instance.SpawnId}", $"{data.Instance.SpawnFlags}");
@@ -63,7 +65,7 @@ namespace YourCheese
                     {
                         player.onDie += (pos, colorId) => {
                             Console.WriteLine("OnPlayerDied! Color ID :" + colorId);
-                        }; 
+                        };
                         // player state check
                         player.StartObserveState();
                     }
