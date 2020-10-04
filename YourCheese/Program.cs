@@ -19,7 +19,6 @@ namespace YourCheese
         static void UpdateCheat()
         {
 
-
             while (true)
             {              
                 Console.Clear();
