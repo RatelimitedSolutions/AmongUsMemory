@@ -49,8 +49,8 @@ namespace YourCheese
 
                     if (data.IsLocalPlayer)
                     {
-                        var lightSourcePtr = HamsterCheese.AmongUsMemory.Utils.GetMemberPointer(data.Instance.myLight, typeof(LightSource), "LightRadius");
-                        HamsterCheese.AmongUsMemory.Cheese.mem.FreezeValue(lightSourcePtr.GetAddress(), "float", "100.0");
+                        data.WriteMemory_Impostor(1);
+                        data.WriteMemory_LightRange(100.0f);
                     }
                     
                 }  
