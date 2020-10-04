@@ -33,12 +33,17 @@ namespace YourCheese
                         Console.ForegroundColor = ConsoleColor.Gray;
                     if (data.PlayerInfo.Value.IsImpostor == 1)
                         Console.ForegroundColor = ConsoleColor.Red;
+                    if (data.PlayerInfo.Value.Disconnected == 1)
+                        Console.ForegroundColor = ConsoleColor.Yellow;
 
                     var Name = HamsterCheese.AmongUsMemory.Utils.ReadString(data.PlayerInfo.Value.PlayerName);
                    PrintRow($"{(data.IsLocalPlayer == true ? "Me->" : "")}{data.offset_str}", $"{Name}", $"{data.Instance.OwnerId}", $"{data.Instance.PlayerId}", $"{data.Instance.SpawnId}", $"{data.Instance.SpawnFlags}");
                    Console.ForegroundColor = ConsoleColor.White; 
             
                    PrintLine();
+
+                    var tasks = data.PlayerInfo.Value.Tasks;
+                    Console.WriteLine(tasks);
                 }  
                 System.Threading.Thread.Sleep(100);
             }
