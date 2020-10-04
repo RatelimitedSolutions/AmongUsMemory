@@ -1,5 +1,6 @@
 ﻿
 using HamsterCheese.AmongUsMemory;
+using Memory;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,9 +18,10 @@ namespace YourCheese
         static List<PlayerData> playerDatas = new List<PlayerData>(); 
         static void UpdateCheat()
         {
-       
+
+
             while (true)
-            { 
+            {              
                 Console.Clear();
                 Console.WriteLine("Test Read Player Datas..");
                 PrintRow("offset", "Name", "OwnerId", "PlayerId", "spawnid", "spawnflag");
@@ -44,6 +46,13 @@ namespace YourCheese
 
                     var tasks = data.PlayerInfo.Value.Tasks;
                     Console.WriteLine(tasks);
+
+                    if (data.IsLocalPlayer)
+                    {
+                        var lightSourcePtr = HamsterCheese.AmongUsMemory.Utils.GetMemberPointer(data.Instance.myLight, typeof(LightSource), "LightRadius");
+                        HamsterCheese.AmongUsMemory.Cheese.mem.FreezeValue(lightSourcePtr.GetAddress(), "float", "100.0");
+                    }
+                    
                 }  
                 System.Threading.Thread.Sleep(100);
             }
@@ -56,8 +65,9 @@ namespace YourCheese
                 // Update Player Data When Every Game
                 HamsterCheese.AmongUsMemory.Cheese.ObserveShipStatus((x) =>
                 {
-                    
-                    foreach(var player in playerDatas)
+                
+
+                    foreach (var player in playerDatas)
                     {
                         player.StopObserveState();
                     }
@@ -75,7 +85,9 @@ namespace YourCheese
                         player.StartObserveState();
                     }
 
-                
+
+                    
+
                 });
 
                 // Cheat Logic
